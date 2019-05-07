@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+/usr/local/fop2/fop2_server -d
+
+if [ $? = 0 ]; then
+	exec /usr/sbin/apachectl -D FOREGROUND
+
+				else
+	echo "Error on Fop2 Server...."
+	exit 1
+fi
+
+

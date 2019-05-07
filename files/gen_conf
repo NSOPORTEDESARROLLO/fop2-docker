@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+mkdir /tmp/fop2
+cp -rvf /opt/* /tmp/fop2/
+
+
+exit 0
