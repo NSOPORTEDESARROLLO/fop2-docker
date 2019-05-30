@@ -1,5 +1,28 @@
 #!/bin/bash
 
+#If Env NSPBX defined then check Mariadb and asterisk services before start 
+DB=0
+AST=0
+
+if [ "$NSPBX" != "" ];then 
+
+	/usr/bin/nc -z $NSPBX 3306
+	DB=$?
+
+	/usr/bin/nc -z $NSPBX 5038
+	AST=$?
+
+fi
+
+#Check for services 
+if [ "$DB" -ne 0 ] || [ "$AST" -ne 0 ];then
+
+	echo "Waiting for Asterisk or Mysql get Ready..........................."
+	exit 1
+
+fi
+
+
 
 /usr/local/fop2/fop2_server -d
 
