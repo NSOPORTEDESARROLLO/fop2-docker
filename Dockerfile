@@ -6,13 +6,14 @@ RUN 	yum -y update; \
 	openssl098e httpd make mysql \
 	php php-pear php-mysql psmisc \
 	php-cli php-pdo php-pear php-pear \
-	php-xml
+	php-xml nc
 
 
 COPY	files/fop2-2.31.21-centos-x86_64.tgz /tmp/
 COPY	files/ns-start /usr/bin/
 COPY	files/httpd.conf /etc/httpd/conf/
 COPY	files/gen_conf /usr/bin/
+COPY	files/healtcheck /usr/bin/
 
 RUN	cd /tmp; \
 	tar -xzvf fop2-2.31.21-centos-x86_64.tgz; \
@@ -32,10 +33,11 @@ RUN     adduser --system --no-create-home asterisk --uid=10000; \
 
 
 RUN	chmod +x /usr/bin/ns-start; \
-	chmod +x /usr/bin/gen_conf
+	chmod +x /usr/bin/gen_conf; \
+	chmod +x /usr/bin/healtcheck
+ 
 
 
-
-
+HEALTHCHECK --interval=30s --timeout=5s --retries=2 CMD /usr/bin/healtcheck
 
 ENTRYPOINT	["/usr/bin/ns-start"]
