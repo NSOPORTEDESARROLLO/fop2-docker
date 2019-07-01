@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#If Env NSPBX defined then check Mariadb and asterisk services before start 
+if [ "$NSPBX" != "" ];then
+
+	DB=2
+	AST=2
+
+	while [[ "$DB" -ne 0 ]] || [[ "$AST" -ne 0 ]];do
+
+		/bin/nc -z $NSPBX 3306
+		DB=$?
+
+		/bin/nc -z $NSPBX 5038
+		AST=$?
+
+		echo "Waiting for Asterisk and Mysql get Ready!"
+		sleep 3
+
+	done
+
+	echo "NSPBX Services Ready!"
+
+fi
+
+
+#Check if activation code is given and active it
+#if [ "$CODE" != "" ];then 
+
+#	/usr/local/fop2/fop2_server --register --code $CODE
+
+#fi 
+
+#Starting Fop2 Service 
+/usr/local/fop2/fop2_server -d -p /var/run/fop2.pid
+
+
+if [ $? = 0 ]; then
+	exec /usr/sbin/apachectl -D FOREGROUND
+
+				else
+	echo "Error on Fop2 Server...."
+	exit 1
+fi
+
+
