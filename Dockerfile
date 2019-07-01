@@ -3,7 +3,7 @@ FROM	debian:8
 
 RUN 	        apt-get update; \
 				apt-get -y upgrade; \
-				apt-get -y install mysql-client php5 openssl make php5-mysql php5-xmlrpc apache2 netcat
+				apt-get -y install mysql-client php5 openssl make php5-mysql php5-xmlrpc apache2 netcat php5-sqlite net-tools dnsutils
 
 
 
