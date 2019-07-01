@@ -3,13 +3,13 @@ FROM	debian:8
 
 RUN 	apt-get update; \
 		apt-get -y upgrade; \
-		mysql-client; \
-		php5; \
-		openssl; \
-		make; \
-		php5-mysql; \
-		php5-xmlrpc; \
-		apache2; \
+		apt-get -y install mysql-client \
+		php5 \
+		openssl \
+		make \
+		php5-mysql \
+		php5-xmlrpc \
+		apache2 \
 		netcat
 
 
