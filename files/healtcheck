@@ -2,16 +2,16 @@
 
 
 #HealtCheck for NSOPORTE Fop2 Container
-/usr/bin/nc -z 127.0.0.1 4445
+/bin/nc -z 127.0.0.1 4445
 FOP2=$?
 DB=0
 AST=0
 
 if [ "$NSPBX" != "" ];then
-	/usr/bin/nc -z $NSPBX 3306
+	/bin/nc -z $NSPBX 3306
 	DB=$?
 
-	/usr/bin/nc -z $NSPBX 5038
+	/bin/nc -z $NSPBX 5038
 	AST=$?
 fi
 
