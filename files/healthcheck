@@ -1,0 +1,45 @@
+#!/bin/bash 
+
+
+#HealthCheck for NSOPORTE Fop2 Container
+/bin/nc -z 127.0.0.1 4445
+FOP2=$?
+DB=0
+AST=0
+
+if [ "$DBHOST" = "" ];then
+	DBHOST=127.0.0.1
+fi
+
+
+if [ "$ASTHOST" = "" ];then 
+	ASTHOST=127.0.0.1
+fi
+
+
+if [ "$DBPORT" = "" ];then 
+	DBPORT=3306
+fi
+
+if [ "$ASTPORT" = "" ];then 
+	ASTPORT=5038
+fi
+
+
+if [ "$NSPBX" != "" ];then
+	/bin/nc -z $DBHOST $DBPORT
+	DB=$?
+
+	/bin/nc -z $ASTHOST $ASTPORT
+	AST=$?
+fi
+
+
+
+if [ "$FOP2" != "0" ] || [ "$DB" != "0" ] || [ "$AST" != "0" ];then
+	exit 1
+
+fi 
+
+
+exit 0

@@ -1,27 +1,50 @@
 #!/bin/bash
 
-#If Env NSPBX defined then check Mariadb and asterisk services before start 
-if [ "$NSPBX" != "" ];then
 
-	DB=2
-	AST=2
+#There are two Env Strings pased by container 
+#DBHOST = Mysql host
+#ASTHOST = Asterisk port 
 
-	while [[ "$DB" -ne 0 ]] || [[ "$AST" -ne 0 ]];do
-
-		/bin/nc -z $NSPBX 3306
-		DB=$?
-
-		/bin/nc -z $NSPBX 5038
-		AST=$?
-
-		echo "Waiting for Asterisk and Mysql get Ready!"
-		sleep 3
-
-	done
-
-	echo "NSPBX Services Ready!"
-
+if [ "$DBHOST" = "" ];then
+	DBHOST=127.0.0.1
 fi
+
+
+if [ "$ASTHOST" = "" ];then 
+	ASTHOST=127.0.0.1
+fi
+
+
+if [ "$DBPORT" = "" ];then 
+	DBPORT=3306
+fi
+
+if [ "$ASTPORT" = "" ];then 
+	ASTPORT=5038
+fi
+
+
+#If Env NSPBX defined then check Mariadb and asterisk services before start 
+DB=2
+AST=2
+
+#Keep until mysql or asterisk Gets ready 
+while [[ "$DB" -ne 0 ]] || [[ "$AST" -ne 0 ]];do
+
+	/bin/nc -z $DBHOST $DBPORT
+	DB=$?
+
+	/bin/nc -z $ASTHOST $ASTPORT
+	AST=$?
+
+	echo "Waiting for Asterisk and Mysql get Ready!"
+	sleep 3
+
+done
+
+echo "NSPBX Services Ready!"
+
+
 
 
 #Check if activation code is given and active it

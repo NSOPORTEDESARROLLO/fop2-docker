@@ -38,7 +38,7 @@ RUN 	rm -rf /tmp/* ;\
 
 RUN	chmod +x /usr/bin/ns-start; \
 	chmod +x /usr/bin/gen_conf; \
-	chmod +x /usr/bin/healtcheck
+	chmod +x /usr/bin/healthcheck
  
 
 
