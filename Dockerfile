@@ -42,6 +42,6 @@ RUN	chmod +x /usr/bin/ns-start; \
  
 
 
-HEALTHCHECK --interval=30s --timeout=5s --retries=2 CMD /usr/bin/healtcheck
+HEALTHCHECK --interval=30s --timeout=5s --retries=2 CMD /usr/bin/healthcheck
 
 ENTRYPOINT	["/usr/bin/ns-start"]
