@@ -13,7 +13,7 @@ COPY	files/000-default.conf /etc/apache2/sites-enabled/
 COPY	files/envvars /etc/apache2/
 COPY	files/ports.conf /etc/apache2/ 
 COPY	files/gen_conf /usr/bin/
-COPY	files/healtcheck /usr/bin/
+COPY	files/healthcheck /usr/bin/
 
 
 RUN     addgroup asterisk --gid=10000; \
